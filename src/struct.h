@@ -27,9 +27,70 @@ typedef enum{
 	TK_ENM		= 0x43,
 	TK_IDX		= 0x44,
 	TK_ARR		= 0x45,
-	TK_PTR		= 0x46
-	
+	TK_PTR		= 0x46,
+	TK_TAB		= 0x47
 }TypeKind;
+
+typedef struct{
+	void*		bytes;
+	uint32_t	type;
+	uint64_t	size;
+}TypeArr;
+
+typedef struct{
+	uint32_t	type;
+}TypeIdx;
+
+typedef struct{
+	uint32_t*	fields;
+	uint32_t*	types;
+	int			size;
+}TypeStruct;
+
+typedef struct{
+	uint32_t*	fields;
+	uint32_t*	types;
+	int			size;
+}TypeUnion;
+
+typedef struct{
+	uint64_t*	tags;
+	uint32_t*	fields;
+	uint32_t*	types;
+	int			size, tagsize;
+}TypeTags;
+
+
+
+typedef struct{
+	TypeKind		kind;
+	union{
+		uint64_t	prim;
+		TypeArr		arr;
+		TypeIdx		idx;
+		TypeStruct	stx;
+		TypeUnion	uni;
+		TypeTags	tag;
+	};
+}Type;
+
+
+typedef struct{
+	Type*		types;
+	char*		names;
+	int			tfill, tsize;
+	int			nfill, nsize;
+}TypeTable;
+
+
+
+
+
+
+
+
+
+
 
 
 
