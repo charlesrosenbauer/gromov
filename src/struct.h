@@ -64,6 +64,7 @@ typedef struct{
 
 typedef struct{
 	TypeKind		kind;
+	uint32_t		name;
 	union{
 		uint64_t	prim;
 		TypeArr		arr;
