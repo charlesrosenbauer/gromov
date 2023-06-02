@@ -15,4 +15,9 @@
 	Additionally, we need operations on it: construct trees, traverse trees,
 	read contents, edit contents, check types, check identifiers, etc.
 */
-
+File initFile(char* path){
+	File ret;
+	ret.path	= path;
+	
+	return ret;
+}

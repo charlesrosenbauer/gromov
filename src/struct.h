@@ -85,7 +85,21 @@ typedef struct{
 
 
 
+typedef struct{
+	uint64_t	index, size, type;
+}Segment;
 
+typedef struct{
+	char*		path;
+	uint8_t*	bytes;
+	int64_t		size;
+	
+	Segment*	segs;
+	int64_t		sfill, ssize;
+}File;
+
+
+File	initFile	(char*);
 
 
 
