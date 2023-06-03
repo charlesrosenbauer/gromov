@@ -1,0 +1,18 @@
+GROMOV
+
+{
+	struct Node
+	[ n ]
+	
+	val : I64
+	l   : Ix64 n : Node
+	r   : Ix64 n : Node
+}
+
+
+{
+	file BinTree
+	
+	ti : Size64
+	ns : Array ti : Node 
+}

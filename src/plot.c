@@ -6,6 +6,7 @@
 
 #include "struct.h"
 #include "util.h"
+#include "gfx.h"
 
 
 

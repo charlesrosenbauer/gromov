@@ -1,0 +1,26 @@
+GROMOV
+
+{
+	struct Vertex
+	x : F32
+	y : F32
+	z : F32
+}
+
+{
+	struct Poly
+	[ n ]
+	a : Ix32 n : Vertex
+	b : Ix32 n : Vertex
+	c : Ix32 n : Vertex
+}
+
+{
+	file Model3d
+	
+	vi : Size32
+	pi : Size32
+	
+	vs : Array vi : Vertex
+	ps : Array pi : Poly vi
+}

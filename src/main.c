@@ -9,12 +9,13 @@
 
 
 int main(int ac, char** av){
+	/*
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Window* w = SDL_CreateWindow("Gromov",
 				SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED,
 				512, 512, SDL_WINDOW_SHOWN);
-	SDL_Surface* screen = SDL_GetWindowSurface(w);
+	SDL_Surface* screen = SDL_GetWindowSurface(w);*/
 
 	uint8_t** bytes = alloca(sizeof(uint8_t ) * ac);
 	int64_t*  sizes = alloca(sizeof(uint64_t) * ac);
@@ -25,6 +26,7 @@ int main(int ac, char** av){
 		}
 	}
 	
+	/*
 	uint32_t* pix = screen->pixels;
 	for(int i = 0; i < 262144; i++) pix[i] = 0xffffff;
 	
@@ -38,5 +40,5 @@ int main(int ac, char** av){
 		SDL_UpdateWindowSurface(w);
 		SDL_Delay(16);
 	}
-	SDL_Quit();
+	SDL_Quit();*/
 }
