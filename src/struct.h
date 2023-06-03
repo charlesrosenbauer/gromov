@@ -89,10 +89,19 @@ typedef struct{
 	uint64_t	index, size, type;
 }Segment;
 
+typedef enum{
+	FK_NIL		= 0,
+	FK_TSPEC	= 1,
+	FK_BSPEC	= 2,
+	FK_BIN		= 3
+}FileKind;
+
 typedef struct{
 	char*		path;
 	uint8_t*	bytes;
 	int64_t		size;
+	
+	FileKind	kind;
 	
 	Segment*	segs;
 	int64_t		sfill, ssize;

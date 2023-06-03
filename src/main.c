@@ -4,6 +4,7 @@
 
 #include "SDL2/SDL.h"
 
+#include "struct.h"
 #include "gfx.h"
 #include "util.h"
 
@@ -17,14 +18,8 @@ int main(int ac, char** av){
 				512, 512, SDL_WINDOW_SHOWN);
 	SDL_Surface* screen = SDL_GetWindowSurface(w);*/
 
-	uint8_t** bytes = alloca(sizeof(uint8_t ) * ac);
-	int64_t*  sizes = alloca(sizeof(uint64_t) * ac);
-	for(int i = 1; i < ac; i++){
-		printf("Loading %s...\n", av[i]);
-		if(!loadFile(av[i], (char**)&bytes[i], &sizes[i])){
-			printf("  Could not load %s\n", av[i]);
-		}
-	}
+	File* fs = alloca(sizeof(File) * ac);
+	for(int i = 1; i < ac; i++) fs[i-1] = initFile(av[i]);
 	
 	/*
 	uint32_t* pix = screen->pixels;
