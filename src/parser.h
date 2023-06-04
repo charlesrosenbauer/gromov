@@ -40,12 +40,13 @@ typedef struct{
 
 TokenList	lex				(char*, int);
 void		printTokenList	(TokenList);
-int			findTok			(TokenList, TokenKind, int);
+int			findToken		(TokenList, TokenKind, int);
 
 int			pairPar			(TokenList, int);
 int			pairBrk			(TokenList, int);
 int			pairBrc			(TokenList, int);
 
+int			getDefs			(TokenList);
 
 
 #endif

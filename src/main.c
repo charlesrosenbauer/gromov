@@ -19,11 +19,23 @@ int main(int ac, char** av){
 				512, 512, SDL_WINDOW_SHOWN);
 	SDL_Surface* screen = SDL_GetWindowSurface(w);*/
 
+	int pass = 1;
 	File* fs = alloca(sizeof(File) * ac);
 	for(int i = 1; i < ac; i++){
 		fs[i-1] = initFile(av[i]);
-		TokenList tl = lex((char*)fs[i-1].bytes, fs[i-1].size);
-		printTokenList(tl);
+		if(fs[i-1].kind == FK_TSPEC){
+			TokenList tl = lex((char*)fs[i-1].bytes, fs[i-1].size);
+			printTokenList(tl);
+			if(tl.tks[0].kind != TK_K_GROMOV){
+				printf("File %s has an invalid header : expected file to start with \"GROMOV\".\n", av[i]);
+				pass = 0;
+			}
+			printf("%i defs\n", getDefs(tl));
+		}
+	}
+	if(!pass){
+		printf("Failed to properly parse input files.\n");
+		return -1;
 	}
 	
 	/*

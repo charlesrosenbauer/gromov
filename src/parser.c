@@ -109,7 +109,7 @@ void printTokenList(TokenList tl){
 
 
 
-int findPar(TokenList tl, TokenKind k, int start){
+int findToken(TokenList tl, TokenKind k, int start){
 	for(int i = start; i < tl.fill; i++)
 		if(tl.tks[i].kind == k) return i;
 	return -1;
@@ -123,7 +123,7 @@ int pairPar(TokenList tl, int start){
 		}else if(tl.tks[i].kind == TK_END_PAR){
 			depth--;
 		}
-		if(depth < 0) return i;
+		if(depth <= 0) return i;
 	}
 	return -1;
 }
@@ -137,7 +137,7 @@ int pairBrk(TokenList tl, int start){
 		}else if(tl.tks[i].kind == TK_END_BRK){
 			depth--;
 		}
-		if(depth < 0) return i;
+		if(depth <= 0) return i;
 	}
 	return -1;
 }
@@ -151,7 +151,25 @@ int pairBrc(TokenList tl, int start){
 		}else if(tl.tks[i].kind == TK_END_BRC){
 			depth--;
 		}
-		if(depth < 0) return i;
+		if(depth <= 0) return i;
 	}
 	return -1;
 }
+
+
+int getDefs(TokenList tl){
+	int defs = 0;
+	for(int i = 1; i < tl.fill; i++){
+		int a, b;
+		i = findToken(tl, TK_OPN_BRC, i);
+		a = i;
+		b = pairBrc(tl, i);
+		if(a < 0) return defs;
+		if(b < 0) return -1;
+		b = i;
+		defs++;
+	}
+	return defs;
+}
+
+
