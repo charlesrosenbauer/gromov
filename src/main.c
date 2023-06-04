@@ -5,6 +5,7 @@
 #include "SDL2/SDL.h"
 
 #include "struct.h"
+#include "parser.h"
 #include "gfx.h"
 #include "util.h"
 
@@ -19,7 +20,11 @@ int main(int ac, char** av){
 	SDL_Surface* screen = SDL_GetWindowSurface(w);*/
 
 	File* fs = alloca(sizeof(File) * ac);
-	for(int i = 1; i < ac; i++) fs[i-1] = initFile(av[i]);
+	for(int i = 1; i < ac; i++){
+		fs[i-1] = initFile(av[i]);
+		TokenList tl = lex((char*)fs[i-1].bytes, fs[i-1].size);
+		printTokenList(tl);
+	}
 	
 	/*
 	uint32_t* pix = screen->pixels;

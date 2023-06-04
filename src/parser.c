@@ -59,6 +59,38 @@ TokenList lex(char* text, int size){
 }
 
 
+void printTokenList(TokenList tl){
+	for(int i = 0; i < tl.fill; i++){
+		Token t = tl.tks[i];
+		char* str;
+		switch(t.kind){
+			case TK_NIL		: str = "nil    "; break;
+			case TK_OPN_PAR	: str = " (     "; break;
+			case TK_END_PAR : str = " )     "; break;
+			case TK_OPN_BRK	: str = " [     "; break;
+			case TK_END_BRK : str = " ]     "; break;
+			case TK_OPN_BRC	: str = " {     "; break;
+			case TK_END_BRC : str = " }     "; break;
+			
+			case TK_ID		: str = "id     "; break;
+			case TK_TYID	: str = "tyid   "; break;
+			
+			case TK_K_STRX	: str = "struct "; break;
+			case TK_K_UNON	: str = "union  "; break;
+			case TK_K_TAGU	: str = "tagged "; break;
+			case TK_K_ENUM	: str = "enum   "; break;
+			
+			case TK_COLON	: str = " :     "; break;
+			default			: str = " ???   "; break;
+		}
+		printf("%4i | %8s %4i %4i\n", i, str, t.pos, t.size);
+	}
+}
+
+
+
+
+
 int findPar(TokenList tl, TokenKind k, int start){
 	for(int i = start; i < tl.fill; i++)
 		if(tl.tks[i].kind == k) return i;
