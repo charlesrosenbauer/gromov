@@ -32,7 +32,28 @@ TokenList lex(char* text, int size){
 	char last = 0;
 	int  head = 0;
 	for(int i = 0; i < size; i++){
-		
+		char here = text[i];
+		if(here <= ' '){
+			// whitespace
+			head = i+1;
+			last = 0;
+		}else{
+			int match = 1;
+			switch(here){
+				case '{' : { insertToken(&ret, (Token){TK_OPN_BRC, i, 1}); head = i+1; } break;
+				case '}' : { insertToken(&ret, (Token){TK_END_BRC, i, 1}); head = i+1; } break;
+				case '(' : { insertToken(&ret, (Token){TK_OPN_PAR, i, 1}); head = i+1; } break;
+				case ')' : { insertToken(&ret, (Token){TK_END_PAR, i, 1}); head = i+1; } break;
+				case '[' : { insertToken(&ret, (Token){TK_OPN_BRK, i, 1}); head = i+1; } break;
+				case ']' : { insertToken(&ret, (Token){TK_END_BRK, i, 1}); head = i+1; } break;
+				case ':' : { insertToken(&ret, (Token){TK_COLON  , i, 1}); head = i+1; } break;
+				default  : match = 0;
+			}
+			if(!match){
+				insertToken(&ret, (Token){TK_ID, here, i-here});
+				head = i+1;
+			}
+		}
 	}
 	return ret;
 }
