@@ -1,3 +1,4 @@
+#include "string.h"
 #include "stdint.h"
 #include "stdlib.h"
 #include "stdio.h"
@@ -28,13 +29,30 @@ int insertToken(TokenList* tl, Token t){
 
 
 TokenList lex(char* text, int size){
-	TokenList ret;
+	TokenList ret = makeTokenList(size);
 	char last = 0;
 	int  head = 0;
 	for(int i = 0; i < size; i++){
 		char here = text[i];
 		if(here <= ' '){
 			// whitespace
+			if(last > ' '){
+				TokenKind k = TK_ID;
+				if((text[head] >= 'A') && (text[head] <= 'Z')) k = TK_TYID;
+				if( text[head] == 'G'){
+					k = (strncmp(&text[head], "GROMOV", 6))? k : TK_K_GROMOV;
+				}else if(text[head] == 's'){
+					k = (strncmp(&text[head], "struct", 6))? k : TK_K_STRX;
+				}else if(text[head] == 'u'){
+					k = (strncmp(&text[head], "union" , 5))? k : TK_K_UNON;
+				}else if(text[head] == 't'){
+					k = (strncmp(&text[head], "tagged", 6))? k : TK_K_TAGU;
+				}else if(text[head] == 'e'){
+					k = (strncmp(&text[head], "enum"  , 4))? k : TK_K_ENUM;
+				}
+				
+				insertToken(&ret, (Token){k, here, i-head});
+			}
 			head = i+1;
 			last = 0;
 		}else{
@@ -50,8 +68,7 @@ TokenList lex(char* text, int size){
 				default  : match = 0;
 			}
 			if(!match){
-				insertToken(&ret, (Token){TK_ID, here, i-here});
-				head = i+1;
+				last = text[i];
 			}
 		}
 	}
@@ -75,6 +92,7 @@ void printTokenList(TokenList tl){
 			case TK_ID		: str = "id     "; break;
 			case TK_TYID	: str = "tyid   "; break;
 			
+			case TK_K_GROMOV: str = "gromov "; break;
 			case TK_K_STRX	: str = "struct "; break;
 			case TK_K_UNON	: str = "union  "; break;
 			case TK_K_TAGU	: str = "tagged "; break;

@@ -18,10 +18,11 @@ typedef enum{
 	TK_ID		= 32,
 	TK_TYID		= 33,
 	
-	TK_K_STRX	= 64,
-	TK_K_UNON	= 65,
-	TK_K_TAGU	= 66,
-	TK_K_ENUM	= 67,
+	TK_K_GROMOV	= 64,
+	TK_K_STRX	= 65,
+	TK_K_UNON	= 66,
+	TK_K_TAGU	= 67,
+	TK_K_ENUM	= 68,
 	
 	TK_COLON	= 96
 }TokenKind;
