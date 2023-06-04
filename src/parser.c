@@ -5,10 +5,35 @@
 #include "parser.h"
 
 
+TokenList makeTokenList(int size){
+	TokenList ret;
+	ret.tks  = malloc(sizeof(Token) * size);
+	ret.fill = 0;
+	ret.size = size;
+	return ret;
+}
+
+int insertToken(TokenList* tl, Token t){
+	if(tl->fill+5 >= tl->size){
+		Token* tmp = tl->tks;
+		tl->size  *= 2;
+		tl->tks    = malloc(sizeof(Token) * tl->size);
+		for(int i  = 0; i < tl->fill; i++)  tl->tks[i] = tmp[i];
+		free(tmp);
+	}
+	tl->tks[tl->fill] = t;
+	tl->fill++;
+	return tl->fill-1;
+}
+
 
 TokenList lex(char* text, int size){
 	TokenList ret;
-
+	char last = 0;
+	int  head = 0;
+	for(int i = 0; i < size; i++){
+		
+	}
 	return ret;
 }
 
